@@ -6,15 +6,16 @@
 // const yourIncome = localStorage.getItem("Income");
 
 
-const incomeField = document.querySelector('.Income');
-const billsField = document.querySelector('.Bills');
-const foodField = document.querySelector('.Food');
-const entertainmentField = document.querySelector('.Entertainment');
-const transportationField = document.querySelector('.Transportation');
-const otherField = document.querySelector('.Other');
-const submitButton = document.querySelector('.submit');
+const form = document.querySelector('form');
 
 function handleSubmit(event) {
+    event.preventDefault();
+    const incomeField = document.querySelector('#Income');
+    const billsField = document.querySelector('#Bills');
+    const foodField = document.querySelector('#Food');
+    const entertainmentField = document.querySelector('#Entertainment');
+    const transportationField = document.querySelector('#Transportation');
+    const otherField = document.querySelector('#Other');
 
     const fields = {
         income: incomeField.value,
@@ -25,7 +26,7 @@ function handleSubmit(event) {
         other: otherField.value
     }
 
-    localStorage.setItem('fields') = JSON.stringify(fields);
+    localStorage.setItem('fields', JSON.stringify(fields));
 
     console.log(localStorage.getItem('fields'));
 
@@ -33,7 +34,7 @@ function handleSubmit(event) {
 }
 
 
-// submitButton.addEventListener('click', handleSubmit);
+form.addEventListener('submit', handleSubmit);
 
 
 
