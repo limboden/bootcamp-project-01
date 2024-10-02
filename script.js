@@ -1,9 +1,42 @@
-const yourBills = localStorage.getItem("Bills");
-const yourEntertainment = localStorage.getItem("Entertainment");
-const yourTransportation = localStorage.getItem("Transportation");
-const yourFood = localStorage.getItem("Food");
-const yourOther = localStorage.getItem("Other");
-const yourIncome = localStorage.getItem("Income");
+// const yourBills = localStorage.getItem("Bills");
+// const yourEntertainment = localStorage.getItem("Entertainment");
+// const yourTransportation = localStorage.getItem("Transportation");
+// const yourFood = localStorage.getItem("Food");
+// const yourOther = localStorage.getItem("Other");
+// const yourIncome = localStorage.getItem("Income");
+
+
+const incomeField = document.querySelector('.Income');
+const billsField = document.querySelector('.Bills');
+const foodField = document.querySelector('.Food');
+const entertainmentField = document.querySelector('.Entertainment');
+const transportationField = document.querySelector('.Transportation');
+const otherField = document.querySelector('.Other');
+const submitButton = document.querySelector('.submit');
+
+function handleSubmit(event) {
+
+    const fields = {
+        income: incomeField.value,
+        bills: billsField.value,
+        entertainment: entertainmentField.value,
+        transportation: transportationField.value,
+        food: foodField.value,
+        other: otherField.value
+    }
+
+    localStorage.setItem('fields') = fields;
+
+    console.log(localStorage.getItem('fields'));
+
+
+}
+
+
+// submitButton.addEventListener('click', handleSubmit);
+
+
+
 
 
 Highcharts.chart('highchart', {
@@ -16,10 +49,10 @@ Highcharts.chart('highchart', {
     tooltip: {
         valueSuffix: '%'
     },
-    subtitle: {
-        text:
-        'Source:<a href="https://www.mdpi.com/2072-6643/11/3/684/htm" target="_default">MDPI</a>'
-    },
+    // subtitle: {
+    //     text:
+    //         'Source: you'
+    // },
     plotOptions: {
         series: {
             allowPointSelect: true,

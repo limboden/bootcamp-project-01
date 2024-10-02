@@ -1,3 +1,33 @@
+body {
+    background-color: rgb(136, 201, 142);
+}
+
+
+
+
+.money-buddy {
+    text-align: center;
+    color: #064b05
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .col {
     border: 5px solid black;
 }
@@ -6,17 +36,6 @@ footer {
     text-align: center;
 }
 
-.piechart {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-image: conic-gradient(
-        pink 70deg,
-        lightblue 0 235deg,
-        orange 0
-    );
-    margin: 10px;
-}
 
 .form {
     display: block;
@@ -34,6 +53,22 @@ label {
     text-align: right;
     margin-right: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .highcharts-figure,
 .highcharts-data-table table {
