@@ -25,7 +25,7 @@ function handleSubmit(event) {
         other: otherField.value
     }
 
-    localStorage.setItem('fields') = fields;
+    localStorage.setItem('fields') = JSON.stringify(fields);
 
     console.log(localStorage.getItem('fields'));
 
