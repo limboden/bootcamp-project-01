@@ -26,20 +26,58 @@ function handleSubmit(event) {
         other: otherField.value
     }
 
-    localStorage.setItem('fields', JSON.stringify(fields));
+    let taxRate = 0.00;
 
-    console.log(localStorage.getItem('fields'));
+    if (fields.income >= 578126) {
+        taxRate = 0.37;
+    } else if (fields.income >= 231251) {
+        taxRate = 0.35;
+    } else if (fields.income >= 182101) {
+        taxRate = 0.32;
+    } else if (fields.income >= 95376) {
+        taxRate = 0.24;
+    } else if (fields.income >= 44726) {
+        taxRate = 0.22;
+    } else if (fields.income >= 11001) {
+        taxRate = 0.12;
+    } else {
+        taxRate = 0.10;
+    }
 
-    loadPieChart();
+    console.log(taxRate);
 
+    const takeHomeIncomePerMonth = (fields.income * (1 - taxRate)) / 12;
 
+    console.log(takeHomeIncomePerMonth);
+
+    const billsByPercent = 100 * fields.bills / takeHomeIncomePerMonth;
+    const foodByPercent = 100 * fields.food / takeHomeIncomePerMonth;
+    const entertainmentByPercent = 100 * fields.entertainment / takeHomeIncomePerMonth;
+    const transportationByPercent = 100 * fields.transportation / takeHomeIncomePerMonth;
+    const otherByPercent = 100 * fields.other / takeHomeIncomePerMonth;
+
+    const savingsByPercent = 100 - billsByPercent - foodByPercent - entertainmentByPercent - transportationByPercent - otherByPercent;
+    if (savingsByPercent >= 0) {
+        const percents = {
+            billsByPercent: billsByPercent,
+            foodByPercent: foodByPercent,
+            entertainmentByPercent: entertainmentByPercent,
+            transportationByPercent: transportationByPercent,
+            otherByPercent: otherByPercent,
+            savingsByPercent: savingsByPercent,
+        }
+
+        localStorage.setItem('pieChart', JSON.stringify(percents));
+
+        loadPieChart();
+    }
 }
 
 function loadPieChart() {
-    const fieldsFromLocal = JSON.parse(localStorage.getItem('fields'));
+    const percentsFromLocal = JSON.parse(localStorage.getItem('pieChart'));
     // now fieldsFromLocal is actually the object
 
-    if (!fieldsFromLocal) {
+    if (!percentsFromLocal) {
         // if there is no local storage...
         document.querySelector('#noLocalStorageText').setAttribute('style', 'display: inline');
         document.querySelector('#highchart').setAttribute('style', 'display: none');
@@ -50,132 +88,86 @@ function loadPieChart() {
         document.querySelector('#noLocalStorageText').setAttribute('style', 'display: none');
         document.querySelector('#highchart').setAttribute('style', 'display: block');
 
-        let taxRate = 0.00;
 
-        if (fieldsFromLocal.income >= 578126) {
-            taxRate = 0.37;
-        } else if (fieldsFromLocal.income >= 231251) {
-            taxRate = 0.35;
-        } else if (fieldsFromLocal.income >= 182101) {
-            taxRate = 0.32;
-        } else if (fieldsFromLocal.income >= 95376) {
-            taxRate = 0.24;
-        } else if (fieldsFromLocal.income >= 44726) {
-            taxRate = 0.22;
-        } else if (fieldsFromLocal.income >= 11001) {
-            taxRate = 0.12;
-        } else {
-            taxRate = 0.10;
-        }
-
-        console.log(taxRate);
-
-        const takeHomeIncomePerMonth = (fieldsFromLocal.income * (1 - taxRate)) / 12;
-
-        console.log(takeHomeIncomePerMonth);
-
-        const billsByPercent = 100 * fieldsFromLocal.bills / takeHomeIncomePerMonth;
-        const foodByPercent = 100 * fieldsFromLocal.food / takeHomeIncomePerMonth;
-        const entertainmentByPercent = 100 * fieldsFromLocal.entertainment / takeHomeIncomePerMonth;
-        const transportationByPercent = 100 * fieldsFromLocal.transportation / takeHomeIncomePerMonth;
-        const otherByPercent = 100 * fieldsFromLocal.other / takeHomeIncomePerMonth;
-
-        const savingsByPercent = 100 - billsByPercent - foodByPercent - entertainmentByPercent - transportationByPercent - otherByPercent;
-
-        if (savingsByPercent > 0) {
-            Highcharts.chart('highchart', {
-                chart: {
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Your Budget'
-                },
-                tooltip: {
-                    valueSuffix: '%'
-                },
-                // subtitle: {
-                //     text:
-                //         'Source: you'
-                // },
-                plotOptions: {
-                    series: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: [{
-                            enabled: true,
-                            distance: 20
-                        }, {
-                            enabled: true,
-                            distance: -40,
-                            format: '{point.percentage:.1f}%',
-                            style: {
-                                fontSize: '1.2em',
-                                textOutline: 'none',
-                                opacity: 0.7
-                            },
-                            filter: {
-                                operator: '>',
-                                property: 'percentage',
-                                value: 10
-                            }
-                        }]
-                    }
-                },
-                series: [
-                    {
-                        name: 'Percentage',
-                        colorByPoint: true,
-                        data: [
-                            {
-                                name: 'Bills',
-                                y: billsByPercent
-                            },
-                            {
-                                name: 'Entertainment',
-                                // sliced: true,
-                                // selected: true,
-                                y: entertainmentByPercent
-                            },
-                            {
-                                name: 'Transportation',
-                                y: transportationByPercent
-                            },
-                            {
-                                name: 'Food',
-                                y: foodByPercent
-                            },
-                            {
-                                name: 'Other',
-                                y: otherByPercent
-                            },
-                            {
-                                name: 'Savings',
-                                y: savingsByPercent
-                            }
-                        ]
-                    }
-                ]
-            });
-        } else {
-
-        }
-
-
-
-
-
-
+        Highcharts.chart('highchart', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Your Budget'
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            // subtitle: {
+            //     text:
+            //         'Source: you'
+            // },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: [{
+                        enabled: true,
+                        distance: 20
+                    }, {
+                        enabled: true,
+                        distance: -40,
+                        format: '{point.percentage:.1f}%',
+                        style: {
+                            fontSize: '1.2em',
+                            textOutline: 'none',
+                            opacity: 0.7
+                        },
+                        filter: {
+                            operator: '>',
+                            property: 'percentage',
+                            value: 10
+                        }
+                    }]
+                }
+            },
+            series: [
+                {
+                    name: 'Percentage',
+                    colorByPoint: true,
+                    data: [
+                        {
+                            name: 'Bills',
+                            y: percentsFromLocal.billsByPercent
+                        },
+                        {
+                            name: 'Entertainment',
+                            // sliced: true,
+                            // selected: true,
+                            y: percentsFromLocal.entertainmentByPercent
+                        },
+                        {
+                            name: 'Transportation',
+                            y: percentsFromLocal.transportationByPercent
+                        },
+                        {
+                            name: 'Food',
+                            y: percentsFromLocal.foodByPercent
+                        },
+                        {
+                            name: 'Other',
+                            y: percentsFromLocal.otherByPercent
+                        },
+                        {
+                            name: 'Savings',
+                            y: percentsFromLocal.savingsByPercent
+                        }
+                    ]
+                }
+            ]
+        });
 
     }
 }
 
 
-
-
-
 form.addEventListener('submit', handleSubmit);
-
-
 
 
 loadPieChart();
