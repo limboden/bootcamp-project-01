@@ -21,19 +21,21 @@ Federal Income Tax will be applied to your income based on...your income.
 | 37% | $578,126 | And up
 
 
-
 ## Getting Started
 
 ### No installation!
-You don't have to install anything! Just go to our [GitHub Pages site](https://www.google.com) and try it out!
+You don't have to install anything! Just go to our [GitHub Pages site](https://limboden.github.io/bootcamp-project-01/) and try it out!
 
 ## Authors
 * Andre
-    * contact info etc etc
+    * GitHub: [acgianesi](https://www.github.com/acgianesi)
+    * Email: acgianesi@gmail.com
 * Sameer
-    * contact info etc etc
+    * GitHub: [sameeridris](https://www.github.com/sameeridris)
+    * Email: sameeridris610@gmail.com
 * Lukas
     * GitHub: [limboden](https://www.github.com/limboden)
+    * Email: imbodenlu@gmail.com
 
 
 ## Tools Used
