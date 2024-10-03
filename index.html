@@ -19,7 +19,9 @@
 
 <body>
     <h1 class="money-buddy">Money Buddy</h1>
-
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">
+        Click Here for Help!
+    </button>
     <div class="container text-center">
         <div class="row">
             <div class="col-12 col-lg-8 col">
@@ -69,8 +71,25 @@
     </div>
 
     <footer>
-        Made by Sameer, Andre and Lukas!
+       © 2024 Made by Sameer, Andre and Lukas! 
     </footer>
+    <div class="modal fade" id="formModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">How to Use this Page!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Insert your income, bills, etc. to get a pie chart!</p>
+                    <p>Your income is taxed based on United States Federal Income Tax.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
